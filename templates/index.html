@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Processing</title>
+</head>
+<body>
+
+<h1>Image Processing</h1>
+
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <label for="file">Select an image:</label>
+    <input type="file" name="file" id="file" accept=".jpg, .jpeg, .png" required>
+    
+    <h2>Adjust Parameters:</h2>
+    
+    <label for="brightness">Brightness (0 to 100):</label>
+    <input type="number" name="brightness" id="brightness" min="0" max="100" value="50" required><br>
+    
+    <label for="blur">Blur (0 to 100):</label>
+    <input type="number" name="blur" id="blur" min="0" max="100" value="0" required><br>
+
+    <input type="submit" value="Process">
+</form>
+
+</body>
+</html>
