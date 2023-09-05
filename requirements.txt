@@ -1,0 +1,4 @@
+Flask==2.3.3
+opencv-python
+imutils==0.5.4
+pyshine==0.0.9
