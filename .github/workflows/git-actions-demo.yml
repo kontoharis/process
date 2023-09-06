@@ -37,15 +37,15 @@ jobs:
     - name: SSH into AWS EC2 instance
       uses: appleboy/ssh-action@master
       with:
-        host: 51.20.9.200
+        host: 13.51.204.248
         username: ubuntu  # Use your EC2 instance username
         key: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your SSH private key as a GitHub secret
         port: 22
 
     - name: Pull Docker image on AWS EC2
       run: |
-        ssh ubuntu@51.20.9.200 "docker pull 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest"
+        ssh ubuntu@13.51.204.248 "docker pull 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest"
 
     - name: Run Docker container on AWS EC2
       run: |
-        ssh ubuntu@51.20.9.200 "docker run -d -p 80:80 --name your-app-name 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest"
+        ssh ubuntu@13.51.204.248 "docker run -d -p 80:80 --name your-app-name 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest"
