@@ -49,9 +49,8 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
              
           # Retrieve Docker login password and execute the Docker login command
-          docker_login_password=$(aws ecr get-login-password --region eu-north-1)
-          docker login --username AWS --password-stdin 403368042282.dkr.ecr.eu-north-1.amazonaws.com
-        
+          aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 403368042282.dkr.ecr.eu-north-1.amazonaws.com
+          
           # Pull the ECR image
           docker pull 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
           
