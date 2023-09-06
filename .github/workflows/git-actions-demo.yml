@@ -41,6 +41,10 @@ jobs:
         username: ubuntu  # Use your EC2 instance username
         key: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your SSH private key as a GitHub secret
         port: 22
+    
+    - name: Authenticate with AWS ECR on EC2 instance
+      run: |
+        ssh ubuntu@13.51.204.248 "aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 403368042282.dkr.ecr.eu-north-1.amazonaws.com"
 
     - name: Pull Docker image on AWS EC2
       run: |
