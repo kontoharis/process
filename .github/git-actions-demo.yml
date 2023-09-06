@@ -29,10 +29,10 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Tag Docker image
-      run: docker tag your-app-name:latest 403368042282.dkr.ecr.eu-north-1.amazonaws.com/your-repo-name:latest
+      run: docker tag your-app-name:latest 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
 
     - name: Push Docker image to AWS ECR
-      run: docker push your-account-id.dkr.ecr.your-aws-region.amazonaws.com/your-repo-name:latest
+      run: docker push your-account-id.dkr.ecr.your-aws-region.amazonaws.com/test-repo:latest
 
     - name: SSH into AWS EC2 instance
       uses: appleboy/ssh-action@master
@@ -44,8 +44,8 @@ jobs:
 
     - name: Pull Docker image on AWS EC2
       run: |
-        ssh ec2-user@your-ec2-instance-ip "docker pull your-account-id.dkr.ecr.your-aws-region.amazonaws.com/your-repo-name:latest"
+        ssh ec2-user@your-ec2-instance-ip "docker pull 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest"
 
     - name: Run Docker container on AWS EC2
       run: |
-        ssh ec2-user@your-ec2-instance-ip "docker run -d -p 80:80 --name your-app-name your-account-id.dkr.ecr.your-aws-region.amazonaws.com/your-repo-name:latest"
+        ssh ec2-user@your-ec2-instance-ip "docker run -d -p 80:80 --name your-app-name 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest"
