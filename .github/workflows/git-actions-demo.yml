@@ -43,11 +43,13 @@ jobs:
         port: 22
     
     - name: Install awscli
-      run: |  
-        ssh ubuntu@13.51.204.248 "sudo apt install awscli"
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      uses: appleboy/ssh-action@master  
+      run: ssh ubuntu@13.51.204.248 "sudo apt install awscli"
+      with:
+        host: 13.51.204.248
+        username: ubuntu  # Use your EC2 instance username
+        key: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your SSH private key as a GitHub secret
+        port: 22
 
     - name: Authenticate with AWS ECR on EC2 instance
       run: |
