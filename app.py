@@ -49,4 +49,4 @@ def upload_file():
             return Response(encoded_img.tobytes(), mimetype='image/jpeg')
 
 if __name__ == "__main__":
-    app.run(debug=True,threaded=True,host='13.51.204.248')
+    app.run(debug=True,threaded=True,host='0.0.0.0')
