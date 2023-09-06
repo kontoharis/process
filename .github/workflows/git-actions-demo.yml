@@ -32,7 +32,7 @@ jobs:
       run: docker tag your-app-name:latest 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
 
     - name: Push Docker image to AWS ECR
-      run: docker push your-account-id.dkr.ecr.your-aws-region.amazonaws.com/test-repo:latest
+      run: docker push 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
 
     - name: SSH into AWS EC2 instance
       uses: appleboy/ssh-action@master
