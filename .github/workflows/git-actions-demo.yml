@@ -34,31 +34,24 @@ jobs:
     - name: Push Docker image to AWS ECR
       run: docker push 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
 
-    - name: SSH into AWS EC2 instance
+    - name: SSH into AWS EC2 instance and pull ECR image
       uses: appleboy/ssh-action@master
       with:
         host: 13.51.204.248
-        username: ubuntu  # Use your EC2 instance username
-        key: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your SSH private key as a GitHub secret
+        username: ubuntu
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
-    
-    - name: Install awscli
-      uses: appleboy/ssh-action@master  
-      run: ssh ubuntu@13.51.204.248 "sudo apt install awscli"
-      with:
-        host: 13.51.204.248
-        username: ubuntu  # Use your EC2 instance username
-        key: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your SSH private key as a GitHub secret
-        port: 22
-
-    - name: Authenticate with AWS ECR on EC2 instance
-      run: |
-        ssh ubuntu@13.51.204.248 "aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 403368042282.dkr.ecr.eu-north-1.amazonaws.com"
-
-    - name: Pull Docker image on AWS EC2
-      run: |
-        ssh ubuntu@13.51.204.248 "docker pull 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest"
-
-    - name: Run Docker container on AWS EC2
-      run: |
-        ssh ubuntu@13.51.204.248 "docker run -d -p 80:80 --name your-app-name 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest"
+        script: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+             
+          # Retrieve Docker login password and execute the Docker login command
+          docker_login_password=$(aws ecr get-login-password --region eu-north-1)
+          docker login --username AWS --password-stdin 403368042282.dkr.ecr.eu-north-1.amazonaws.com
+        
+          # Pull the ECR image
+          docker pull 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
+          
+          #Run Docker container on AWS EC2
+          docker run -d -p 80:80 --name your-app-name 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
+        
