@@ -45,6 +45,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
+          docker rm -f flask-app
           sudo apt install awscli -y # For Ubuntu
           sudo apt update
 
