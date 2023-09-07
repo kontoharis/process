@@ -6,7 +6,7 @@ on:
       - master  # Change this to your main branch name
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest  # You can choose a different runner if needed
 
     steps:
@@ -18,9 +18,21 @@ jobs:
       with:
         python-version: 3.x  # Specify your Python version if needed
 
+    - name: Kill Docker container
+      run: docker rm -f flask-app
+
     - name: Build Docker image
       run: docker build -t flask-app:latest .
 
+    - name: Build successful
+      id: build-success
+      run: echo "::set-output name=build-success::true"
+
+  deploy:
+    needs: build  # This ensures that the "deploy" job depends on the "build" job
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Authenticate with AWS ECR
       run: |
         aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 403368042282.dkr.ecr.eu-north-1.amazonaws.com
@@ -55,6 +67,5 @@ jobs:
           # Pull the ECR image
           docker pull 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
           
-          #Run Docker container on AWS EC2
+          # Run Docker container on AWS EC2
           docker run -d -p 80:80 --name flask-app 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
-        
