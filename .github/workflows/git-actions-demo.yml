@@ -19,7 +19,7 @@ jobs:
         python-version: 3.x  # Specify your Python version if needed
 
     - name: Build Docker image
-      run: docker build -t your-app-name:latest .
+      run: docker build -t flask-app:latest .
 
     - name: Authenticate with AWS ECR
       run: |
@@ -29,7 +29,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Tag Docker image
-      run: docker tag your-app-name:latest 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
+      run: docker tag flask-app:latest 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
 
     - name: Push Docker image to AWS ECR
       run: docker push 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
@@ -55,5 +55,5 @@ jobs:
           docker pull 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
           
           #Run Docker container on AWS EC2
-          docker run -d -p 80:80 --name your-app-name 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
+          docker run -d -p 80:80 --name flask-app 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
         
