@@ -6,7 +6,13 @@ on:
       - master  # Change this to your main branch name
 
 jobs:
-  build:
+  test:
+    runs-on: ubuntu-latest  # You can choose a different runner if needed
+    steps:
+    - name: Run Unit Tests  # Add a step for running unit tests
+      run: python -m unittest test/test_app.py  # Adjust the command based on your project structure
+
+  build_image:
     runs-on: ubuntu-latest  # You can choose a different runner if needed
 
     steps:
