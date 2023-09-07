@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Install dependencies
+      - name: Run unit tests
         run: |
           pip install -r requirements.txt
           python -m unittest test_app.py
