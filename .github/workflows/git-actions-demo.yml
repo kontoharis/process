@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest  # You can choose a different runner if needed
     env:
-      working-directory: .
+      working-directory: ./
 
     steps:
     - name: Run Unit Test  # Add a step for running unit tests
