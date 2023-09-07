@@ -24,12 +24,7 @@ jobs:
     - name: Build successful
       id: build-success
       run: echo "::set-output name=build-success::true"
-
-  deploy:
-    needs: build  # This ensures that the "deploy" job depends on the "build" job
-    runs-on: ubuntu-latest
-
-    steps:
+    
     - name: Authenticate with AWS ECR
       run: |
         aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 403368042282.dkr.ecr.eu-north-1.amazonaws.com
@@ -42,7 +37,12 @@ jobs:
 
     - name: Push Docker image to AWS ECR
       run: docker push 403368042282.dkr.ecr.eu-north-1.amazonaws.com/test-repo:latest
+  
+  deploy:
+    needs: build  # This ensures that the "deploy" job depends on the "build" job
+    runs-on: ubuntu-latest
 
+    steps:
     - name: SSH into AWS EC2 instance and pull ECR image
       uses: appleboy/ssh-action@master
       with:
