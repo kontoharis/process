@@ -18,9 +18,6 @@ jobs:
       with:
         python-version: 3.x  # Specify your Python version if needed
 
-    - name: Kill Docker container
-      run: docker rm -f flask-app
-
     - name: Build Docker image
       run: docker build -t flask-app:latest .
 
