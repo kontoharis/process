@@ -19,8 +19,8 @@ GIT:
 
 Docker:
 Οι εντολές που δημιουργούν το container με το app μας.
-docker build -t flask-app .    #δημιουργεί το docker image βάσει του dockerfile
-docker run -p 80:80 flask-app    #δημιουργεί το container βάσει του ανωτέρω image
+docker build -t flask-app .    #δημιουργία docker image βάσει του dockerfile
+docker run -p 80:80 flask-app    #εκτέλεση docker image -> δημιουργία container
 
 
 AWS public deployment:
