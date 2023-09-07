@@ -13,7 +13,10 @@ jobs:
 
     steps:
     - name: Run Unit Test  # Add a step for running unit tests
-      run: python -m unittest test_app  # Adjust the command based on your project structure
+      run: pip install -r requirements.txt
+
+    - name: Run Unit Test  # Add a step for running unit tests
+      run: python -m unittest test_app # Adjust the command based on your project structure
 
   build_image:
     needs: test
