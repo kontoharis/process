@@ -27,3 +27,6 @@ docker run -p 80:80 flask-app    #εκτέλεση docker image -> δημιου�
 AWS public deployment:
 Δημιουργήθηκε ένα EC2 instance με ένα χρήστη, τους απαραίτητους ρόλους και ένα ECR repo στο οποίο γίνεται build το image.
 Το web-app απαντάει σε αυτή την public IP του instance: http://13.51.204.248/
+
+Video:
+https://youtu.be/nIYVHx7JXhg
