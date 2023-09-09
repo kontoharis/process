@@ -58,7 +58,7 @@ jobs:
     - name: SSH into AWS EC2 instance and pull ECR image
       uses: appleboy/ssh-action@master
       with:
-        host: 13.51.204.248
+        host: 16.170.249.248
         username: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
