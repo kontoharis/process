@@ -35,7 +35,7 @@ jobs:
 
     - name: Build successful
       id: build-success
-      run: echo "::set-output name=build-success::true"
+      run: echo "build-success=true" >> $GITHUB_OUTPUT
     
     - name: Authenticate with AWS ECR
       run: |
